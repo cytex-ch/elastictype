@@ -21,7 +21,7 @@
 <div align="center" style="margin-bottom: 20px; background-color: #FFF; border-radius: 5px; padding: 20px; color: #000;">
         ⚠️ This project is still in development and not ready for production use. ⚠️<br/>
         Can't wait to use it? Feel free to 
-        <a href="#✍️-authors">contribute</a>.
+        <a href="#authors">contribute</a>.
 </div>
 
 <br/>
