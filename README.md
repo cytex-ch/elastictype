@@ -5,10 +5,6 @@
 
 <br/>
 
-<div align="center" style="margin-bottom: 20px; background-color: lightgray; border-radius: 5px; padding: 20px; color: #000;">
-        ⚠️ This project is still in development and not ready for production use. ⚠️
-</div>
-
 <div align="center">
 
 [![Node.js CI](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml/badge.svg)](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml)
@@ -20,6 +16,15 @@
 
 </div>
 
+<br/>
+
+<div align="center" style="margin-bottom: 20px; background-color: #FFF; border-radius: 5px; padding: 20px; color: #000;">
+        ⚠️ This project is still in development and not ready for production use. ⚠️<br/>
+        Can't wait to use it? Feel free to 
+        <a href="#✍️-authors">contribute</a>.
+</div>
+
+<br/>
 ## 📝 Table of Contents
 
 - [About](#about)
