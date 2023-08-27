@@ -5,6 +5,10 @@
 
 <br/>
 
+<div align="center" style="margin-bottom: 20px; background-color: lightgray; border-radius: 5px; padding: 20px; color: #000;">
+        ⚠️ This project is still in development and not ready for production use. ⚠️
+</div>
+
 <div align="center">
 
 [![Node.js CI](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml/badge.svg)](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml)
@@ -31,13 +35,13 @@
 
 ## 🧐 About
 
-`<a name="about"></a>`
+<a name="about"></a>
 
 Elastictype is a easy way to model application data stored in Elasticsearch. It is inpsired by mongoose and @nestjs/mongoose and thus includes type casting, validation, query building, hooks and much more. It is written in TypeScript and thus provides type safety.
 
 ## 🏁 Features
 
-`<a name="features"></a>`
+<a name="features"></a>
 
 - Type casting
 - Validation
@@ -48,13 +52,13 @@ Elastictype is a easy way to model application data stored in Elasticsearch. It 
 
 ## 🏁 Getting Started
 
-`<a name="getting_started"></a>`
+<a name="getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-`<a name="prerequisites"></a>`
+<a name="prerequisites"></a>
 
 Please make sure you have installed the following tools:
 
@@ -63,7 +67,7 @@ Please make sure you have installed the following tools:
 
 ### Installing
 
-`<a name="installing"></a>`
+<a name="installing"></a>
 
 Install the package via npm:
 
@@ -79,7 +83,7 @@ yarn add @cytex/elastictype
 
 ## 🎈 Usage
 
-`<a name="usage"></a>`
+<a name="usage"></a>
 
 ### Basic usage
 
@@ -132,7 +136,7 @@ const cat = await Cat.findById("foo");
 
 ## 🔧 Running the tests
 
-`<a name = "tests"></a>`
+<a name="tests"></a>
 
 Tests are written with jest. You can run them with the following command:
 
@@ -142,7 +146,7 @@ npm run test
 
 ## ⛏️ Built Using
 
-`<a name = "built_using"></a>`
+<a name="built_using"></a>
 
 - [TypeScript](https://www.typescriptlang.org/) - Programming language
 - [Jest](https://jestjs.io/) - Testing framework
@@ -151,14 +155,14 @@ npm run test
 
 ## ✍️ Authors
 
-`<a name = "authors"></a>`
+<a name="authors"></a>
 
 - [@cytex-media-solutions](https://github.com/cytex-media-solutions) - Project author
 - [@sjutz](https://github.com/sjutz) - Project maintainer <simon.jutz@cytex.ch>
 
 ## 🎉 Acknowledgements
 
-`<a name = "acknowledgement"></a>`
+<a name="acknowledgement"></a>
 
 - [Nestjs](https://nestjs.com/) - Node.js framework
 - [mongoose](https://mongoosejs.com/) - MongoDB object modeling for Node.js
