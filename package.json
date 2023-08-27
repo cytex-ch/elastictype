@@ -1,7 +1,7 @@
 {
   "name": "elastictype",
   "displayName": "@cytex/elastictype",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Elastictype is a easy way to model application data stored in Elasticsearch. It is inpsired by mongoose and @nestjs/mongoose and thus includes type casting, validation, query building, hooks and much more. It is written in TypeScript and thus provides type safety.",
   "keywords": [
     "elasticsearch",
