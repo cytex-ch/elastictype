@@ -1,4 +1,4 @@
-import { Injectable, Type } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { BaseSchemaInterface } from "..";
 
 @Injectable()

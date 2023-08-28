@@ -1,4 +1,5 @@
-import { Inject, Type } from "@nestjs/common";
+import { Inject } from "@nestjs/common";
+import { Type } from "../types";
 
 import { DEFAULT_DB_CONNECTION } from "../elastictype.constants";
 import { BaseSchemaInterface } from "..";

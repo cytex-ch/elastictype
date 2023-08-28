@@ -1,9 +1,9 @@
 import { Module, Provider, Type } from "@nestjs/common";
 
+import { Client } from "@elastic/elasticsearch";
 import { BaseSchemaInterface, ElastictypeCoreModule } from ".";
 import { getIndexToken } from "./decorators/inject-index.decorator";
 import { IndexService } from "./providers/index.service";
-import { Client } from "@elastic/elasticsearch";
 
 export function createElastictypeProviders(
   schemataConstructors: Type<BaseSchemaInterface>[] = []

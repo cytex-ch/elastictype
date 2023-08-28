@@ -1,21 +1,16 @@
-import {
-  TypeMetadataStorage,
-  TypeMetadataStorageHost,
-} from "./storage/type-metadata.storage";
+import { TypeMetadataStorage } from "./storage/type-metadata.storage";
 
-export * from "./elastictype.module";
-export * from "./elastictype-core-module";
-export * from "./types";
-
-export * from "./decorators/prop.decorator";
-export * from "./decorators/schema.decorator";
-export * from "./metadata/property-metadata";
-export * from "./metadata/schema.metadata";
-
-export * from "./storage/type-metadata.storage";
-export * from "./providers/index.service";
 export * from "./decorators/hook.decorator";
 export * from "./decorators/inject-index.decorator";
+export * from "./decorators/prop.decorator";
+export * from "./decorators/schema.decorator";
+export * from "./elastictype-core-module";
+export * from "./elastictype.module";
+export * from "./metadata/property-metadata";
+export * from "./metadata/schema.metadata";
+export * from "./providers/index.service";
+export * from "./storage/type-metadata.storage";
+export * from "./types";
 
 export interface BaseSchemaInterface<T = any> {
   save(): Promise<T>;

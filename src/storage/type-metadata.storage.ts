@@ -4,6 +4,7 @@ import { HookMetadata } from "../metadata/hook-metadata";
 import { PropertyMetadata } from "../metadata/property-metadata";
 import { SchemaMetadata } from "../metadata/schema.metadata";
 import { ElasticDataType } from "../types";
+
 export class TypeMetadataStorageHost {
   private properties = new Array<PropertyMetadata>();
   private schemata = new Array<SchemaMetadata>();
