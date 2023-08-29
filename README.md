@@ -7,6 +7,8 @@
 
 <div align="center">
 
+
+
 [![Node.js CI](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml/badge.svg)](https://github.com/cytex-media-solutions/elastictype/actions/workflows/node.js.yml)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 ![GitHub issues](https://img.shields.io/github/issues/cytex-media-solutions/elastictype)
