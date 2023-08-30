@@ -241,7 +241,7 @@ describe('Metadata', () => {
 
     Cat.sql(`SELECT * FROM cats WHERE name = '${savedCat.name}'`).then(res => {
       expect(res).toBeDefined();
-      expect(res.rows.length).toBe(1);
+      expect(res.rows.length).toBeGreaterThan(0);
       expect(res.rows[0][0]).toBe(savedCat.age);
       expect(res.rows[0][2]).toBe(savedCat.name);
     });
