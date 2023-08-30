@@ -1,9 +1,17 @@
 export enum ElasticDataType {
-  Text = "text",
-  Keyword = "keyword",
-  Long = "long",
-  Integer = "integer",
+  Text = 'text',
+  Keyword = 'keyword',
+  Long = 'long',
+  Integer = 'integer',
 }
-export interface Type<T = any> extends Function {
-  new (...args: any[]): T;
+
+export interface SchemaOptions {
+  index: string;
 }
+
+export interface FieldOptions {
+  type: ElasticDataType;
+  description?: string;
+}
+
+export type Type<T> = new (...args: any[]) => T;

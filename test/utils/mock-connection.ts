@@ -1,5 +1,5 @@
-import { errors } from "@elastic/elasticsearch";
-import { MockPattern } from "@elastic/elasticsearch-mock";
+import {errors} from '@elastic/elasticsearch';
+import {MockPattern} from '@elastic/elasticsearch-mock';
 import {
   UpdateResponse,
   GetResponse,
@@ -7,43 +7,46 @@ import {
   GetGetResult,
   SearchResponse,
   CountResponse,
-} from "@elastic/elasticsearch/lib/api/types";
-const Mock = require("@elastic/elasticsearch-mock");
+} from '@elastic/elasticsearch/lib/api/types';
+const Mock = require('@elastic/elasticsearch-mock');
 
-import { randomUUID } from "crypto";
+import {randomUUID} from 'crypto';
 
 const mock = new Mock();
 
 let cats: any[] = [];
-let dogs: any[] = [];
+const dogs: any[] = [];
 
 let existingIndices = [] as string[];
 
 const getParams = (params: MockPattern, path: string) => {
-  const paramKeys = path.split("/");
+  const paramKeys = path.split('/');
 
-  return paramKeys.reduce((acc, p) => {
-    if (p.startsWith(":")) {
-      acc[p.replace(":", "")] = params.path?.toString()?.split("/")?.[
-        paramKeys.indexOf(p)
-      ];
-    }
-    return acc;
-  }, {} as { [key: string]: string });
+  return paramKeys.reduce(
+    (acc, p) => {
+      if (p.startsWith(':')) {
+        acc[p.replace(':', '')] = params.path?.toString()?.split('/')?.[
+          paramKeys.indexOf(p)
+        ];
+      }
+      return acc;
+    },
+    {} as {[key: string]: string}
+  );
 };
 
 mock
   .add(
     {
-      method: "DELETE",
-      path: "/:index",
+      method: 'DELETE',
+      path: '/:index',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index");
-      const index = params["index"];
+      const params = getParams(body, '/:index');
+      const index = params['index'];
 
       if (index && existingIndices.includes(index)) {
-        existingIndices = existingIndices.filter((i) => i !== index);
+        existingIndices = existingIndices.filter(i => i !== index);
       }
 
       return {
@@ -53,20 +56,20 @@ mock
   )
   .add(
     {
-      method: "DELETE",
-      path: "/:index/_doc/:id",
+      method: 'DELETE',
+      path: '/:index/_doc/:id',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_doc/:id");
-      const index = params["index"];
-      const id = params["id"];
+      const params = getParams(body, '/:index/_doc/:id');
+      const index = params['index'];
+      const id = params['id'];
 
-      cats = (index === "dogs" ? dogs : cats).filter((c) => c.id !== id);
+      cats = (index === 'dogs' ? dogs : cats).filter(c => c.id !== id);
 
       return {
-        result: "deleted",
+        result: 'deleted',
         _index: index,
-        _type: "_doc",
+        _type: '_doc',
         _id: id,
         _version: 2,
         _shards: {
@@ -81,15 +84,15 @@ mock
   )
   .add(
     {
-      method: "POST",
-      path: "/:index/_doc",
+      method: 'POST',
+      path: '/:index/_doc',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_doc");
-      const index = params["index"];
+      const params = getParams(body, '/:index/_doc');
+      const index = params['index'];
 
       const id = randomUUID();
-      (index === "dogs" ? dogs : cats).push({
+      (index === 'dogs' ? dogs : cats).push({
         _id: id,
         id,
         ...body.body,
@@ -99,9 +102,9 @@ mock
         _index: index,
         _id: id,
         _version: 1,
-        result: "created",
+        result: 'created',
         forced_refresh: true,
-        _shards: { total: 2, successful: 1, failed: 0 },
+        _shards: {total: 2, successful: 1, failed: 0},
         _seq_no: 2,
         _primary_term: 1,
       };
@@ -109,55 +112,59 @@ mock
   )
   .add(
     {
-      method: "POST",
-      path: "/_sql",
+      method: 'POST',
+      path: '/_sql',
     },
     (body: MockPattern) => {
-      const sql = (body.body as any).query;
+      const sql = (
+        body.body as {
+          query: string;
+        }
+      ).query;
 
       // example: SELECT * FROM cats WHERE name = 'Abyssinian'
 
       const [, index, column, value] =
         /SELECT \* FROM (.*) WHERE (.*) = '(.*)'/.exec(sql) ?? [];
 
-      const hits = (index === "dogs" ? dogs : cats).filter((c) => {
+      const hits = (index === 'dogs' ? dogs : cats).filter(c => {
         return c[column] === value;
       });
 
       return {
         columns: [
           {
-            name: "name",
-            type: "text",
+            name: 'name',
+            type: 'text',
           },
           {
-            name: "age",
-            type: "long",
+            name: 'age',
+            type: 'long',
           },
           {
-            name: "age",
-            type: "long",
+            name: 'age',
+            type: 'long',
           },
         ],
-        rows: hits.map((h) => [h.age, h.id, h.name]),
+        rows: hits.map(h => [h.age, h.id, h.name]),
       };
     }
   )
   .add(
     {
-      method: "POST",
-      path: "/:index/_update/:id",
+      method: 'POST',
+      path: '/:index/_update/:id',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_doc/:id");
-      const index = params["index"];
-      const id = params["id"];
+      const params = getParams(body, '/:index/_doc/:id');
+      const index = params['index'];
+      const id = params['id'];
 
-      const data = body.body as any;
+      const data = body.body as {
+        doc: any;
+      };
 
-      const exising = (index === "dogs" ? dogs : cats).find(
-        (c) => c._id === id
-      );
+      const exising = (index === 'dogs' ? dogs : cats).find(c => c._id === id);
 
       if (!exising) {
         return new errors.ResponseError({
@@ -172,28 +179,28 @@ mock
         });
       }
 
-      if (index === "dogs") {
+      if (index === 'dogs') {
         dogs.splice(
-          dogs.findIndex((c) => c.id === id),
+          dogs.findIndex(c => c.id === id),
           1,
 
-          { ...exising, ...data.doc }
+          {...exising, ...data.doc}
         );
       } else {
         cats.splice(
-          cats.findIndex((c) => c.id === id),
+          cats.findIndex(c => c.id === id),
           1,
-          { ...exising, ...data.doc }
+          {...exising, ...data.doc}
         );
       }
 
       return <UpdateResponse>{
         _index: index,
         found: true,
-        _type: "_doc",
+        _type: '_doc',
         _id: id,
         _version: 2,
-        result: "updated",
+        result: 'updated',
         _shards: {
           total: 2,
           successful: 1,
@@ -206,12 +213,12 @@ mock
   )
   .add(
     {
-      method: "HEAD",
-      path: "/:index",
+      method: 'HEAD',
+      path: '/:index',
     } as any,
     (body: MockPattern) => {
-      const params = getParams(body, "/:index");
-      const index = params["index"];
+      const params = getParams(body, '/:index');
+      const index = params['index'];
 
       const exists = !!existingIndices.includes(index);
 
@@ -234,37 +241,37 @@ mock
 
   .add(
     {
-      method: "HEAD",
-      path: "/:index/_doc/:id",
+      method: 'HEAD',
+      path: '/:index/_doc/:id',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_doc/:id");
-      const index = params["index"];
-      const id = params["id"];
+      const params = getParams(body, '/:index/_doc/:id');
+      const index = params['index'];
+      const id = params['id'];
 
-      if (index === "dogs") {
-        return dogs.filter((c) => c._id === id).length > 0 ? true : false;
+      if (index === 'dogs') {
+        return dogs.filter(c => c._id === id).length > 0 ? true : false;
       } else {
-        return cats.filter((c) => c._id === id).length > 0 ? true : false;
+        return cats.filter(c => c._id === id).length > 0 ? true : false;
       }
     }
   )
   .add(
     {
-      method: "GET",
-      path: "/:index/_mapping",
+      method: 'GET',
+      path: '/:index/_mapping',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_mapping");
-      const index = params["index"];
+      const params = getParams(body, '/:index/_mapping');
+      const index = params['index'];
 
       const mapping = {
         properties: {
           name: {
-            type: "keyword",
+            type: 'keyword',
           },
           age: {
-            type: "integer",
+            type: 'integer',
           },
         },
       };
@@ -279,15 +286,15 @@ mock
 
   .add(
     {
-      method: "GET",
-      path: "/:index/_doc/:id",
+      method: 'GET',
+      path: '/:index/_doc/:id',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_doc/:id");
-      const index = params["index"];
-      const id = params["id"];
+      const params = getParams(body, '/:index/_doc/:id');
+      const index = params['index'];
+      const id = params['id'];
 
-      const found = (index === "dogs" ? dogs : cats).filter((c) => {
+      const found = (index === 'dogs' ? dogs : cats).filter(c => {
         return c.id === id;
       })?.[0];
       if (!found) {
@@ -298,7 +305,7 @@ mock
             errors: {},
             status: 404,
 
-            message: "Not found",
+            message: 'Not found',
           },
           warnings: [],
           headers: {},
@@ -307,7 +314,7 @@ mock
       }
       return <GetResponse>{
         _index: index,
-        _type: "_doc",
+        _type: '_doc',
         _id: id,
         _version: 1,
         _seq_no: 0,
@@ -319,12 +326,12 @@ mock
   )
   .add(
     {
-      method: "PUT",
-      path: "/:index",
+      method: 'PUT',
+      path: '/:index',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index");
-      const index = params["index"];
+      const params = getParams(body, '/:index');
+      const index = params['index'];
 
       if (!existingIndices.includes(index)) {
         existingIndices.push(index);
@@ -337,17 +344,17 @@ mock
   )
   .add(
     {
-      method: "POST",
-      path: "/:index/_update_by_query",
+      method: 'POST',
+      path: '/:index/_update_by_query',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_update_by_query");
-      const index = params["index"];
+      const params = getParams(body, '/:index/_update_by_query');
+      const index = params['index'];
 
       const query = (body.body as any)?.query;
 
-      const hits = (index === "dogs" ? dogs : cats)
-        .filter((c) => {
+      const hits = (index === 'dogs' ? dogs : cats)
+        .filter(c => {
           if (query.match) {
             return c.name === (query.match as any).name;
           }
@@ -358,9 +365,9 @@ mock
 
           return false;
         })
-        .map((c) => ({
+        .map(c => ({
           _index: index,
-          _type: "_doc",
+          _type: '_doc',
           _id: c.id,
           _score: 1,
           _source: c,
@@ -369,18 +376,18 @@ mock
       for (const hit of hits) {
         const data = (body.body as any).script.params;
 
-        if (index === "dogs") {
+        if (index === 'dogs') {
           dogs.splice(
-            dogs.findIndex((c) => c.id === hit._id),
+            dogs.findIndex(c => c.id === hit._id),
             1,
 
-            { ...hit._source, ...data }
+            {...hit._source, ...data}
           );
         } else {
           cats.splice(
-            cats.findIndex((c) => c.id === hit._id),
+            cats.findIndex(c => c.id === hit._id),
             1,
-            { ...hit._source, ...data }
+            {...hit._source, ...data}
           );
         }
       }
@@ -396,23 +403,23 @@ mock
 
   .add(
     {
-      method: "POST",
-      path: "/:index/_search",
+      method: 'POST',
+      path: '/:index/_search',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_search");
-      const index = params["index"];
+      const params = getParams(body, '/:index/_search');
+      const index = params['index'];
 
       const isFindByQuery =
-        Object.keys(body.body ?? {}).includes("query") &&
-        Object.keys((body.body as any).query ?? {}).includes("match");
+        Object.keys(body.body ?? {}).includes('query') &&
+        Object.keys((body.body as any).query ?? {}).includes('match');
 
       let hits = [] as any[];
       if (isFindByQuery) {
         const query = (body.body as any).query;
 
-        hits = (index === "dogs" ? dogs : cats)
-          .filter((c) => {
+        hits = (index === 'dogs' ? dogs : cats)
+          .filter(c => {
             if (query.match) {
               return c.name === (query.match as any).name;
             }
@@ -424,10 +431,10 @@ mock
             return false;
           })
           .map(
-            (c) =>
+            c =>
               <GetGetResult>{
                 _index: index,
-                _type: "_doc",
+                _type: '_doc',
                 _id: c.id,
                 _score: 1,
                 _source: c,
@@ -435,11 +442,11 @@ mock
               }
           );
       } else {
-        hits = (index === "dogs" ? dogs : cats).map(
-          (c) =>
+        hits = (index === 'dogs' ? dogs : cats).map(
+          c =>
             <GetGetResult>{
               _index: index,
-              _type: "_doc",
+              _type: '_doc',
               _id: c.id,
               _score: 1,
               _source: c,
@@ -458,14 +465,14 @@ mock
 
   .add(
     {
-      method: "GET",
-      path: "/:index/_count",
+      method: 'GET',
+      path: '/:index/_count',
     },
     (body: MockPattern) => {
-      const params = getParams(body, "/:index/_count");
-      const index = params["index"];
+      const params = getParams(body, '/:index/_count');
+      const index = params['index'];
 
-      const count = (index === "dogs" ? dogs : cats).length;
+      const count = (index === 'dogs' ? dogs : cats).length;
 
       return <CountResponse>{
         count,
@@ -473,4 +480,4 @@ mock
     }
   );
 
-export { mock };
+export {mock};

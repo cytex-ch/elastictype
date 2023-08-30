@@ -8,6 +8,15 @@ export interface HookMetadata {
   target: Function;
 
   /**
+   * The property key of the hook.
+   *
+   * @remarks
+   * The property key of the hook is a string or symbol that represents the name of the hook.
+   * @type {PropertyKey}
+   */
+  originalName: PropertyKey;
+
+  /**
    * The value of the hook.
    * @remarks
    * The value of the hook is a function that will be called when the hook is triggered.
@@ -22,10 +31,10 @@ export interface HookMetadata {
    * @type {string}
    */
   name:
-    | "postSave"
-    | "postUpdate"
-    | "postDelete"
-    | "preSave"
-    | "preUpdate"
-    | "preDelete";
+    | 'postSave'
+    | 'postUpdate'
+    | 'postDelete'
+    | 'preSave'
+    | 'preUpdate'
+    | 'preDelete';
 }

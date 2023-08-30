@@ -1,5 +1,5 @@
-import { Type } from "../types";
-import { BaseSchemaInterface } from "..";
+import {BaseSchema} from '..';
+import {Type} from '../types';
 
 /**
  * @module query
@@ -11,19 +11,19 @@ import { BaseSchemaInterface } from "..";
  * @values "eq" | "gt" | "gte" | "lt" | "lte" | "ne" | "exists"
  */
 
-type Operator = "eq" | "gt" | "gte" | "lt" | "lte" | "ne" | "exists" | "match";
+type Operator = 'eq' | 'gt' | 'gte' | 'lt' | 'lte' | 'ne' | 'exists' | 'match';
 /**
  * @typedef {string} BoolOperator - The boolean operator used to combine multiple query conditions.
  * @values "and" | "or"
  */
-type BoolOperator = "and" | "or";
+type BoolOperator = 'and' | 'or';
 
 /**
  * @class Query
  * @template T - The type of the schema interface used for querying.
  * @description Represents a query object for Elasticsearch.
  */
-export class Query<T extends BaseSchemaInterface> {
+export class Query<T extends BaseSchema<T>> {
   private indexName: string;
   private typeName?: string;
 
@@ -31,7 +31,7 @@ export class Query<T extends BaseSchemaInterface> {
 
   private cls?: Type<T>;
 
-  private fields = new Array<keyof T | "_id">();
+  private fields = new Array<keyof T | '_id'>();
   private from?: number;
 
   private whereClauses: {
@@ -74,7 +74,7 @@ export class Query<T extends BaseSchemaInterface> {
    * @returns {Query<T>} - A new instance of the Query class.
    * @description Initializes a new query object with the specified schema interface class.
    */
-  static with<T extends BaseSchemaInterface>(cls: Type<T>): Query<T> {
+  static with<T extends BaseSchema<T>>(cls: Type<T>): Query<T> {
     return new Query<T>(cls.name, cls.name, cls);
   }
 
@@ -113,7 +113,7 @@ export class Query<T extends BaseSchemaInterface> {
       field,
       operator,
       value: Array.isArray(value) ? value : [value],
-      boolOperator: "and",
+      boolOperator: 'and',
     });
     return this;
   }
@@ -127,7 +127,7 @@ export class Query<T extends BaseSchemaInterface> {
    * @description Adds an additional query condition with "AND" operator to the query.
    */
   andWhere(field: keyof T, operator: Operator, value: T[keyof T][]) {
-    this.whereClauses.push({ field, operator, value, boolOperator: "and" });
+    this.whereClauses.push({field, operator, value, boolOperator: 'and'});
     return this;
   }
 
@@ -140,7 +140,7 @@ export class Query<T extends BaseSchemaInterface> {
    * @description Adds an additional query condition with "OR" operator to the query.
    */
   orWhere(field: keyof T, operator: Operator, value: T[keyof T]) {
-    this.whereClauses.push({ field, operator, value, boolOperator: "or" });
+    this.whereClauses.push({field, operator, value, boolOperator: 'or'});
     return this;
   }
 
@@ -151,15 +151,15 @@ export class Query<T extends BaseSchemaInterface> {
    * @description Compiles the query conditions into Elasticsearch query format.
    */
   private compileWhereClauses() {
-    return this.whereClauses.map((clause) => {
-      const { field, operator, value, boolOperator } = clause;
+    return this.whereClauses.map(clause => {
+      const {field, operator, value, boolOperator} = clause;
       const query: any = {};
       if (boolOperator) {
         query.bool = {
-          [boolOperator === "and" ? "must" : "should"]: (Array.isArray(value)
+          [boolOperator === 'and' ? 'must' : 'should']: (Array.isArray(value)
             ? value
             : [value]
-          ).map((value) => ({
+          ).map(value => ({
             [operator]: {
               [field]: Array.isArray(value) ? value?.[0] : value,
             },
@@ -210,20 +210,20 @@ export class Query<T extends BaseSchemaInterface> {
    * @returns {Promise<T[]>} - The query result.
    * @description Executes the query and returns the result.
    */
-  async find(): Promise<T[]> {
+  async find() {
     return TypeMetadataStorage.findByQuery(
-      this.cls as Type<T>,
-      { ...this.compile().query },
+      this.cls as any,
+      {...this.compile().query},
       this.size,
       this.from
     );
   }
 
   async findAll(): Promise<T[]> {
-    return TypeMetadataStorage.findAll(this.cls as Type<T>, this.fields);
+    return TypeMetadataStorage.findAll(this.cls as any, this.fields);
   }
 
-  select(...fields: (keyof T | "_id")[]): Query<T> {
+  select(...fields: (keyof T | '_id')[]): Query<T> {
     this.fields = fields;
     return this;
   }
@@ -235,7 +235,7 @@ export class Query<T extends BaseSchemaInterface> {
    * @returns {Promise<any>} - The found document.
    * @description Finds a single document by ID.
    */
-  async findOne(id: string): Promise<T> {
-    return TypeMetadataStorage.findOne(this.cls as Type<T>, id, this.fields);
+  async findOne(id: string) {
+    return TypeMetadataStorage.findOne(this.cls as any, id, this.fields as any);
   }
 }

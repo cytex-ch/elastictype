@@ -1,11 +1,10 @@
-import { Inject } from "@nestjs/common";
-import { Type } from "../types";
+import {Inject, Type} from '@nestjs/common';
 
-import { DEFAULT_DB_CONNECTION } from "../elastictype.constants";
-import { BaseSchemaInterface } from "..";
+import {BaseSchemaInterface} from '..';
+import {DEFAULT_DB_CONNECTION} from '../elastictype.constants';
 
 export const InjectIndex = (
-  index: Type<BaseSchemaInterface>,
+  index: Type<BaseSchemaInterface<never>>,
   connectionName?: string
 ) => Inject(getIndexToken(index.name, connectionName));
 

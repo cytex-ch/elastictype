@@ -1,24 +1,21 @@
-import { Module, Provider, Type } from "@nestjs/common";
+import {Module, Provider, Type} from '@nestjs/common';
 
-import { Client } from "@elastic/elasticsearch";
-import { BaseSchemaInterface, ElastictypeCoreModule } from ".";
-import { getIndexToken } from "./decorators/inject-index.decorator";
-import { IndexService } from "./providers/index.service";
+import {Client} from '@elastic/elasticsearch';
+import {BaseSchema, ElastictypeCoreModule, TypeMetadataStorage} from '.';
+import {getIndexToken} from './decorators/inject-index.decorator';
+import {IndexService} from './providers/index.service';
 
 export function createElastictypeProviders(
-  schemataConstructors: Type<BaseSchemaInterface>[] = []
+  schemataConstructors: Type<BaseSchema<never>>[] = []
 ): Provider[] {
-  return schemataConstructors.map((cl) => ({
+  return schemataConstructors.map(cl => ({
     useFactory: () => new IndexService(cl.name, cl),
     provide: getIndexToken(cl.name),
   }));
 }
 @Module({})
 export class ElastictypeModule {
-  static forRoot(options: {
-    models: Type<BaseSchemaInterface>[];
-    client: Client;
-  }) {
+  static forRoot(options: {models: Type<BaseSchema<never>>[]; client: Client}) {
     const providers = createElastictypeProviders(options.models);
 
     TypeMetadataStorage.setClient(options.client);
@@ -29,7 +26,7 @@ export class ElastictypeModule {
       providers: [
         ...providers,
         {
-          provide: "ELASTIC_CLIENT",
+          provide: 'ELASTIC_CLIENT',
           useValue: options.client,
         },
       ],

@@ -1,23 +1,24 @@
-import { TypeMetadataStorage } from "../storage/type-metadata.storage";
-
-export const Hook =
-  (
-    name:
-      | "preSave"
-      | "postSave"
-      | "preUpdate"
-      | "postUpdate"
-      | "preDelete"
-      | "postDelete"
-  ) =>
-  (
-    target: any,
-    propertyKey: string | symbol,
+function Hook(
+  name:
+    | 'preSave'
+    | 'postSave'
+    | 'preUpdate'
+    | 'postUpdate'
+    | 'preDelete'
+    | 'postDelete'
+): MethodDecorator {
+  return (
+    target: Object,
+    propertyKey: PropertyKey,
     descriptor: PropertyDescriptor
   ) => {
     TypeMetadataStorage.addHook({
       target: target.constructor,
       name: name,
-      value: descriptor.value,
+      originalName: propertyKey,
+      value: descriptor?.value,
     });
   };
+}
+
+export {Hook};

@@ -1,10 +1,10 @@
-import { Global, Module } from "@nestjs/common";
+import {Global, Module, ModuleMetadata} from '@nestjs/common';
 
 @Global()
 @Module({})
 export class ElastictypeCoreModule {
   static forRoot() {
-    return {
+    return <ModuleMetadata>{
       module: ElastictypeCoreModule,
       imports: [],
       providers: [],
@@ -12,4 +12,4 @@ export class ElastictypeCoreModule {
   }
 }
 
-export * from "./elastictype.module";
+export * from './elastictype.module';
