@@ -57,7 +57,7 @@
     "@babel/preset-env": "^7.13.12",
     "@faker-js/faker": "^8.0.2",
     "@nx/js": "16.7.4",
-    "@types/jest": "^27.0.1",
+    "@types/jest": "^29.0.0",
     "@types/node": "20.5.7",
     "eslint-plugin-prettier": "^5.0.0",
     "gts": "^5.0.1",
