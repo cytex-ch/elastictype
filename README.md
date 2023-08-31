@@ -36,6 +36,7 @@
 - [Prerequisites](#prerequisites)
 - [Installing](#installing)
 - [License](#license)
+- [Contribute](./CONTRIBUTE.md)
 - [Tests](#tests)
 - [Usage](#usage)
 - [Built Using](#built_using)
