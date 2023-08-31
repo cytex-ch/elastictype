@@ -47,7 +47,7 @@
 
 <a name="about"></a>
 
-Elastictype is a easy way to model application data stored in Elasticsearch. It is inpsired by mongoose and @nestjs/mongoose and thus includes type casting, validation, query building, hooks and much more. It is written in TypeScript and thus provides type safety.
+Elastictype is a easy way to model application data stored in Elasticsearch. It is inspired by mongoose and @nestjs/mongoose and thus includes type casting, validation, query building, hooks and much more. It is written in TypeScript and provides type safety.
 
 ## 🏁 Features
 
