@@ -14,7 +14,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/cytex-media-solutions/elastictype)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/cytex-media-solutions/elastictype)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![codecov](https://codecov.io/gh/cytex-media-solutions/elastictype/graph/badge.svg?token=P7TXWCFFB5)](https://codecov.io/gh/cytex-media-solutions/elastictype)
+[![codecov](https://codecov.io/gh/cytex-ch/elastictype/graph/badge.svg?token=P7TXWCFFB5)](https://codecov.io/gh/cytex-ch/elastictype)
 
 </div>
 
