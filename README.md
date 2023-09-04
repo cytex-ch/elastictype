@@ -160,9 +160,7 @@ npm run test
 
 In the vast realm of code, where ideas intertwine and innovation knows no bounds, I find myself continually amazed by the unwavering spirit of collaboration that defines the open source community. It's a world where developers, like you and me, share their creations, their insights, and their expertise with an unparalleled generosity. Countless times, whether through serendipitous discovery or through meticulous research, I've stumbled upon remarkable projects that have enriched my own journey as a developer.
 
-Recognizing the profound impact that the open source community has had on my own growth, I've made a personal commitment to give back to this tapestry of ingenuity. The code is licensed under the <strong>APGL license</strong>, which means that you're free to use, remix, and build upon it. It's my way of extending the thread of collaboration that binds us as developers.
-
-However, I also understand the diverse needs that drive us in this community. If you're considering utilizing this project for commercial purposes in which copyleft is no option, <string>I invite you to reach out</string>. While there isn't a fixed license model in place, I believe in the power of optimism and negotiation. Let's work together to find a solution that aligns with your goals while respecting the effort and intent behind this work.
+Recognizing the profound impact that the open source community has had on my own growth, I've made a personal commitment to give back to this tapestry of ingenuity. The code is licensed under the <strong>Apache license</strong>, which means that you're free to use, remix, and build upon it. It's my way of extending the thread of collaboration that binds us as developers.
 
 ## ⛏️ Built Using
 

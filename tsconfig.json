@@ -1,9 +1,9 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "importHelpers": true,
+    "rootDir": "./src",
     "outDir": "build",
+    "importHelpers": true,
     "module": "commonjs",
     "types": [
       "jest",
@@ -12,7 +12,7 @@
     "lib": [
       "es2019"
     ],
-    "declaration": false,
+    "declaration": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
@@ -22,6 +22,5 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
   ]
 }
