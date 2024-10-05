@@ -55,7 +55,7 @@
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-decorators": "^7.22.10",
     "@babel/preset-env": "^7.13.12",
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^9.0.0",
     "@nx/js": "19.8.4",
     "@types/jest": "^29.0.0",
     "@types/node": "20.16.10",
