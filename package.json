@@ -58,7 +58,7 @@
     "@faker-js/faker": "^8.0.2",
     "@nx/js": "19.8.4",
     "@types/jest": "^29.0.0",
-    "@types/node": "20.16.10",
+    "@types/node": "20.17.0",
     "eslint-plugin-prettier": "^5.0.0",
     "rimraf": "^6.0.0",
     "gts": "^5.0.1",
